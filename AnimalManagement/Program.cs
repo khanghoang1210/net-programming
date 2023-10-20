@@ -8,10 +8,42 @@ namespace AnimalManagement
     {
         static void Main(string[] args)
         {
-            Animal dog = new Animal();
+            int nDog = 3;
+            int nCat = 2;
 
-            dog.InputInfo();
-            dog.DisplayInfo();
+            Dog dog;
+            Cat cat;
+            object[] obj = new object[nDog + nCat];
+            for (int i = 0; i < nDog; i++)
+            {
+                dog = new Dog();
+                dog.InputInfo();
+                obj[i] = (Dog)dog;
+            }
+
+            for (int i = 0; i < nCat; i++)
+            {
+                cat = new Cat();
+                cat.InputInfo();
+                obj[nDog + i] = (Cat)cat;
+            }
+
+            for (int i = 0; i < nDog + nCat; i++)
+            {
+                if (obj[i].GetType() == typeof(Dog))
+                {
+                    Console.WriteLine("Information of dog: ");
+                    dog = (Dog)obj[i];
+                    dog.DisplayInfo();
+                }
+                else
+                {
+                    Console.WriteLine("Information of cat: ");
+                    cat = (Cat)obj[i];
+                    cat.DisplayInfo();
+                }
+            }
+
             Console.ReadKey();
 
         }
@@ -20,12 +52,12 @@ namespace AnimalManagement
 
 namespace MainData
 {
-    class Animal
+    public class Animal
     {
-        private string name = "";
-        private int age = 0;
-        private float height = 0;
-        private float weight = 0;
+        protected string name = "";
+        protected int age = 0;
+        protected float height = 0;
+        protected float weight = 0;
         public Animal() { }
         public Animal(string name, int age, float height, float weight)
         {
@@ -36,6 +68,7 @@ namespace MainData
         }
         public void DisplayInfo()
         {
+            Console.WriteLine("=============================================");
             Console.WriteLine("Name: {0}, age: {1}, height: {2}, weight: {3}", name, age, height, weight);
         }
         public class NegativeNumException : Exception
@@ -47,7 +80,7 @@ namespace MainData
         public void InputInfo()
         {
             // Input name;
-            Console.Write("Input name of dog: ");
+            Console.Write("Input name: ");
             name = Console.ReadLine();
 
             // Input Age
@@ -120,7 +153,6 @@ namespace MainData
                 {
                     Console.Write("Number required: ");
                     str = Console.ReadLine();
-                    // measure = float.Parse(str);
                 }
             } while (!isCompleted);
             return measure;
@@ -128,4 +160,16 @@ namespace MainData
         }
 
     }
+
+    public class Dog : Animal
+    {
+        public Dog() { }
+
+    }
+
+    public class Cat : Animal
+    {
+        public Cat() { }
+    }
+
 }
