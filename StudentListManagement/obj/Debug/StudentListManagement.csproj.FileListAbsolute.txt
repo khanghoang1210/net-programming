@@ -1,0 +1,14 @@
+C:\Users\Ms.Trang\source\repos\StudentListManagement\StudentListManagement\bin\Debug\StudentListManagement.exe.config
+C:\Users\Ms.Trang\source\repos\StudentListManagement\StudentListManagement\bin\Debug\StudentListManagement.exe
+C:\Users\Ms.Trang\source\repos\StudentListManagement\StudentListManagement\bin\Debug\StudentListManagement.pdb
+C:\Users\Ms.Trang\source\repos\StudentListManagement\StudentListManagement\obj\Debug\StudentListManagement.csproj.AssemblyReference.cache
+C:\Users\Ms.Trang\source\repos\StudentListManagement\StudentListManagement\obj\Debug\StudentListManagement.csproj.CoreCompileInputs.cache
+C:\Users\Ms.Trang\source\repos\StudentListManagement\StudentListManagement\obj\Debug\StudentListManagement.exe
+C:\Users\Ms.Trang\source\repos\StudentListManagement\StudentListManagement\obj\Debug\StudentListManagement.pdb
+D:\Data\VNU-HCMUS\dotnet\StudentListManagement\StudentListManagement\bin\Debug\StudentListManagement.exe.config
+D:\Data\VNU-HCMUS\dotnet\StudentListManagement\StudentListManagement\bin\Debug\StudentListManagement.exe
+D:\Data\VNU-HCMUS\dotnet\StudentListManagement\StudentListManagement\bin\Debug\StudentListManagement.pdb
+D:\Data\VNU-HCMUS\dotnet\StudentListManagement\StudentListManagement\obj\Debug\StudentListManagement.csproj.AssemblyReference.cache
+D:\Data\VNU-HCMUS\dotnet\StudentListManagement\StudentListManagement\obj\Debug\StudentListManagement.csproj.CoreCompileInputs.cache
+D:\Data\VNU-HCMUS\dotnet\StudentListManagement\StudentListManagement\obj\Debug\StudentListManagement.exe
+D:\Data\VNU-HCMUS\dotnet\StudentListManagement\StudentListManagement\obj\Debug\StudentListManagement.pdb

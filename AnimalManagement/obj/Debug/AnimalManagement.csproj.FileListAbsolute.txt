@@ -1,0 +1,7 @@
+D:\Data\VNU-HCMUS\dotnet\dotnet-programming\AnimalManagement\bin\Debug\AnimalManagement.exe.config
+D:\Data\VNU-HCMUS\dotnet\dotnet-programming\AnimalManagement\bin\Debug\AnimalManagement.exe
+D:\Data\VNU-HCMUS\dotnet\dotnet-programming\AnimalManagement\bin\Debug\AnimalManagement.pdb
+D:\Data\VNU-HCMUS\dotnet\dotnet-programming\AnimalManagement\obj\Debug\AnimalManagement.csproj.AssemblyReference.cache
+D:\Data\VNU-HCMUS\dotnet\dotnet-programming\AnimalManagement\obj\Debug\AnimalManagement.csproj.CoreCompileInputs.cache
+D:\Data\VNU-HCMUS\dotnet\dotnet-programming\AnimalManagement\obj\Debug\AnimalManagement.exe
+D:\Data\VNU-HCMUS\dotnet\dotnet-programming\AnimalManagement\obj\Debug\AnimalManagement.pdb
