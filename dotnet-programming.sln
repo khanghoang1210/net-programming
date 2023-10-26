@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentListManagement", "St
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnimalManagement", "AnimalManagement\AnimalManagement.csproj", "{44036FA7-7D3A-424A-8AD9-1C4CB63A2816}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sport", "Sport\Sport.csproj", "{487FE33D-33B5-4461-8828-AEF627B96399}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SportManagement", "Sport\SportManagement.csproj", "{487FE33D-33B5-4461-8828-AEF627B96399}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

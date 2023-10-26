@@ -1,0 +1,7 @@
+D:\Data\VNU-HCMUS\dotnet\dotnet-programming\Sport\bin\Debug\Sport.exe.config
+D:\Data\VNU-HCMUS\dotnet\dotnet-programming\Sport\bin\Debug\Sport.exe
+D:\Data\VNU-HCMUS\dotnet\dotnet-programming\Sport\bin\Debug\Sport.pdb
+D:\Data\VNU-HCMUS\dotnet\dotnet-programming\Sport\obj\Debug\SportManagement.csproj.AssemblyReference.cache
+D:\Data\VNU-HCMUS\dotnet\dotnet-programming\Sport\obj\Debug\SportManagement.csproj.CoreCompileInputs.cache
+D:\Data\VNU-HCMUS\dotnet\dotnet-programming\Sport\obj\Debug\Sport.exe
+D:\Data\VNU-HCMUS\dotnet\dotnet-programming\Sport\obj\Debug\Sport.pdb
