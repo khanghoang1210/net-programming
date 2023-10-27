@@ -1,7 +1,6 @@
 ﻿using MainData;
 using System;
 
-
 namespace AnimalManagement
 {
     class Program
@@ -55,7 +54,7 @@ namespace MainData
     public class Animal
     {
         protected string name = "";
-        protected int age = 0;
+        protected float age = 0;
         protected float height = 0;
         protected float weight = 0;
         public Animal() { }
@@ -69,7 +68,7 @@ namespace MainData
         public void DisplayInfo()
         {
             Console.WriteLine("=============================================");
-            Console.WriteLine("Name: {0}, age: {1}, height: {2}, weight: {3}", name, age, height, weight);
+            Console.WriteLine("Name: {0}, age: {1} year(s) old, height: {2} cm, weight: {3} g", name, age, height, weight);
         }
         public class NegativeNumException : Exception
         {
@@ -77,7 +76,7 @@ namespace MainData
             public NegativeNumException(string message) : base(message) { }
         }
 
-        public void InputInfo()
+        public virtual void InputInfo()
         {
             // Input name;
             Console.Write("Input name: ");
@@ -87,25 +86,25 @@ namespace MainData
             InputAge();
 
             // Input Height
-            Console.Write("Input height: ");
+            Console.Write("Input height (cm): ");
             string strHeight = Console.ReadLine();
             height = CheckFormat(strHeight);
 
             // Input Weight
-            Console.Write("Input weight: ");
+            Console.Write("Input weight (g): ");
             string strWeight = Console.ReadLine();
             weight = CheckFormat(strWeight);
         }
         public void InputAge()
         {
             bool isCompleted = false;
-            Console.Write("Input age of dog: ");
+            Console.Write("Input age: ");
             string str = Console.ReadLine();
             do
             {
                 try
                 {
-                    age = int.Parse(str);
+                    age = float.Parse(str);
                     if (age < 0)
                     {
                         throw new NegativeNumException();
@@ -115,6 +114,10 @@ namespace MainData
                     {
                         throw new Exception();
                     }
+                    else if (age.GetType() != typeof(float))
+                    {
+                        throw new FormatException();
+                    }
 
                     isCompleted = true;
                 }
@@ -122,13 +125,19 @@ namespace MainData
                 {
                     Console.Write("Negative age is not accepted, please input positive number: ");
                     str = Console.ReadLine();
-                    age = int.Parse(str);
+                    age = float.Parse(str);
+                }
+                catch (FormatException)
+                {
+                    Console.Write("Number is required: ");
+                    str = Console.ReadLine();
+                    age = float.Parse(str);
                 }
                 catch (Exception)
                 {
                     Console.Write("Age greater than 20 is not accepted, please input smaller age: ");
                     str = Console.ReadLine();
-                    age = int.Parse(str);
+                    age = float.Parse(str);
                 }
             } while (!isCompleted);
 
@@ -151,7 +160,7 @@ namespace MainData
                 }
                 catch (FormatException)
                 {
-                    Console.Write("Number required: ");
+                    Console.Write("Number is required: ");
                     str = Console.ReadLine();
                 }
             } while (!isCompleted);
@@ -165,11 +174,27 @@ namespace MainData
     {
         public Dog() { }
 
+        public override void InputInfo()
+        {
+
+            Console.WriteLine("Input information of dog ");
+            base.InputInfo();
+            Console.WriteLine("=============================");
+
+        }
+
     }
 
     public class Cat : Animal
     {
         public Cat() { }
-    }
+        public override void InputInfo()
+        {
 
+            Console.WriteLine("Input information of cat ");
+            base.InputInfo();
+            Console.WriteLine("=============================");
+
+        }
+    }
 }

@@ -7,12 +7,12 @@ namespace SportManagement
     {
         static void Main(string[] args)
         {
-            Console.Write("Enter number of sports you want to input information: ");
+            Console.Write("Enter numbers of sport you want to input information: ");
             int n = int.Parse(Console.ReadLine());
             object[] obj = new object[n];
             for (int i = 0; i < n; i++)
             {
-                Console.Write($"{i + 1}. Enter sport information (f for football, t for tennis, v for volleyball): ");
+                Console.Write($"{i + 1}. Enter type of sport (f for football, t for tennis, v for volleyball): ");
                 string typeSport = "";
                 try
                 {
