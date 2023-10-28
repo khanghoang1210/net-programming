@@ -1,15 +1,22 @@
-﻿using MainData;
+﻿using AttributeData;
+using MainData;
+using Microsoft.SqlServer.Server;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Net.NetworkInformation;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace MilkManagement
 {
     internal class Program
     {
+        [DllImport("User32.dll")]
+        public static extern int MessageBox(int hParent, string Message, string Caption, int Type);
         static void Main(string[] args)
         {
             Milk milk = new Milk();
@@ -18,12 +25,30 @@ namespace MilkManagement
             milk.ValProductionDate = "28/10/2023";
             milk.ValExpiredDate = "28/11/2023";
 
-            Console.WriteLine("Milk information: ");
-            Console.WriteLine($"Milk Id: {milk.ValMilkID}");
-            Console.WriteLine($"Milk name: {milk.ValMilkName}");
-            Console.WriteLine($"Production date: {milk.ValProductionDate}");
-            Console.WriteLine($"Expired date: {milk.ValExpiredDate}");
-            Console.WriteLine($"Quantity: {milk.ValQuantity}");
+            Type type = typeof(Milk);
+            string OutPutInfo = "Class modify information: ";
+            foreach (Object attributes in type.GetCustomAttributes(false))
+            {
+                MilkMoreInfo milkMore = (MilkMoreInfo)attributes;
+                if (milk != null)
+                {
+                    OutPutInfo = String.Format($"\n Manufacturer: {milkMore.Manufacturer} \n Company name: {milkMore.CompanyName}");
+                    Console.WriteLine(OutPutInfo);
+                }
+            }
+
+            string OutPutMessage = String.Format($"\n Milk ID: {milk.ValMilkID} \n Name: {milk.ValMilkName}");
+            OutPutMessage += String.Format($"\n Production date: {milk.ValProductionDate} \n Expired Date: {milk.ValExpiredDate}");
+            OutPutMessage += String.Format($"\n Quantity: {milk.ValQuantity}");
+
+
+            //Console.WriteLine("Milk information: ");
+            //Console.WriteLine($"Milk Id: {milk.ValMilkID}");
+            //Console.WriteLine($"Milk name: {milk.ValMilkName}");
+            //Console.WriteLine($"Production date: {milk.ValProductionDate}");
+            //Console.WriteLine($"Expired date: {milk.ValExpiredDate}");
+            //Console.WriteLine($"Quantity: {milk.ValQuantity}");
+            MessageBox(0, OutPutMessage, "Milk Information", 1);
             Console.ReadKey();
         }
     }
@@ -31,6 +56,7 @@ namespace MilkManagement
 
 namespace MainData
 {
+    [MilkMoreInfo("Vinamilk", "Coop Food")]
     public class Milk
     {
         private string MilkName = "MILK01012023";
@@ -58,7 +84,7 @@ namespace MainData
             set
             {
                 ProductionDate = DateTime.ParseExact(value, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-                MilkID = String.Format($"MILK{ProductionDate.ToString("ddMMyyyy")}");
+                MilkID = String.Format($"MILK{ProductionDate:ddMMyyyy}");
             }
         }
         public string ValExpiredDate
@@ -71,5 +97,21 @@ namespace MainData
         }
         public int ValQuantity { get { return Quantity; } set { Quantity = value; } }
 
+    }
+}
+namespace AttributeData
+{
+    [AttributeUsage(AttributeTargets.All, AllowMultiple = true)]
+    public class MilkMoreInfo : System.Attribute
+    {
+        public string Manufacturer { get; set; }
+        public string CompanyName { get; set; }
+
+        public MilkMoreInfo(string Manufactuer = "", string companyName = "")
+        {
+
+            this.Manufacturer = Manufactuer;
+            this.CompanyName = companyName;
+        }
     }
 }
