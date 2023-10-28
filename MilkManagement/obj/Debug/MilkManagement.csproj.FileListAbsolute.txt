@@ -1,0 +1,7 @@
+D:\Data\VNU-HCMUS\dotnet\dotnet-programming\MilkManagement\bin\Debug\MilkManagement.exe.config
+D:\Data\VNU-HCMUS\dotnet\dotnet-programming\MilkManagement\bin\Debug\MilkManagement.exe
+D:\Data\VNU-HCMUS\dotnet\dotnet-programming\MilkManagement\bin\Debug\MilkManagement.pdb
+D:\Data\VNU-HCMUS\dotnet\dotnet-programming\MilkManagement\obj\Debug\MilkManagement.csproj.AssemblyReference.cache
+D:\Data\VNU-HCMUS\dotnet\dotnet-programming\MilkManagement\obj\Debug\MilkManagement.csproj.CoreCompileInputs.cache
+D:\Data\VNU-HCMUS\dotnet\dotnet-programming\MilkManagement\obj\Debug\MilkManagement.exe
+D:\Data\VNU-HCMUS\dotnet\dotnet-programming\MilkManagement\obj\Debug\MilkManagement.pdb
