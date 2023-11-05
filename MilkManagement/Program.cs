@@ -1,43 +1,86 @@
 ﻿using AttributeData;
 using MainData;
-using Microsoft.SqlServer.Server;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Net.NetworkInformation;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web;
 
 delegate void MilkInOut();
 namespace MilkManagement
 {
-    internal class Program
+    public class Program
     {
+        [DllImport("User32.dll")]
+        public static extern int MessageBox(int hParent, string Message, string Caption, int Type);
         static void Main(string[] args)
         {
-            Milk milk = new Milk();
-            MilkInOut milkInput = new MilkInOut(milk.Input);
-            MilkInOut milkDisplay = new MilkInOut(milk.Display);
-            milkInput();
 
-            //milk.Input();
-
-            Type type = typeof(Milk);
-            string OutPutInfo = "Class modify information: ";
-            foreach (Object attributes in type.GetCustomAttributes(false))
+            Console.Write("Please enter the number of milk types: ");
+            int n = int.Parse(Console.ReadLine());
+            List<Milk> listMilk = new List<Milk>();
+            for (int i = 0; i < n; i++)
             {
-                MilkMoreInfo milkMore = (MilkMoreInfo)attributes;
-                if (milk != null)
+                Milk milk = new Milk();
+                MilkInOut milkInput = new MilkInOut(milk.Input);
+                Console.WriteLine($"===========Enter the milk type no {i + 1}==========");
+                milkInput();
+                listMilk.Add(milk);
+            }
+
+            foreach (Milk milk in listMilk)
+            {
+                MilkInOut milkDisplay = new MilkInOut(milk.Display);
+                milkDisplay();
+
+            }
+            Console.Write("Do you want search the milk? [Y] yes/ [N] no: ");
+            string ans = Console.ReadLine();
+            if (ans == "y" || ans.ToLower() == "y")
+            {
+                Console.Write("Enter the index of the milk you want to search for: ");
+
+                int index = int.Parse(Console.ReadLine());
+                try
                 {
-                    OutPutInfo = String.Format($"\nManufacturer: {milkMore.Manufacturer} \nCompany name: {milkMore.CompanyName}");
-                    Console.WriteLine(OutPutInfo);
+                    Milk foundMilk = listMilk[index - 1];
+                    if (foundMilk == null)
+                    {
+                        throw new IndexOutOfRangeException();
+                    }
+
+                    if (foundMilk != null)
+                    {
+
+                        Type type = typeof(Milk);
+                        string OutPutInfo = "Class modify information: ";
+                        foreach (var attribute in Attribute.GetCustomAttributes(type))
+                        {
+                            if (attribute is MilkMoreInfo milkMore)
+                            {
+                                if (foundMilk != null)
+                                {
+                                    OutPutInfo = String.Format($"\n Milk ID: {foundMilk.ValMilkID} \n Name: {foundMilk.ValMilkName}");
+                                    OutPutInfo += String.Format($"\n Production date: {foundMilk.ValProductionDate} \n Expired Date: {foundMilk.ValExpiredDate}");
+                                    OutPutInfo += String.Format($"\n Quantity: {foundMilk.ValQuantity}");
+                                    OutPutInfo += String.Format($"\n Manufacturer: {milkMore.Manufacturer} \n Company name: {milkMore.CompanyName}");
+                                    MessageBox(0, OutPutInfo, "Result For Search", 1);
+                                }
+                            }
+
+                        }
+                    }
+                }
+
+                catch (IndexOutOfRangeException)
+                {
+                    Console.WriteLine($"No milk found with the name '{index}'.");
                 }
             }
-            milkDisplay();
+            else
+            {
+                return;
+            }
+
             Console.ReadKey();
         }
     }
@@ -55,6 +98,7 @@ namespace MainData
         void Input();
         void Display();
     }
+
     [MilkMoreInfo("Vinamilk", "Coop Food")]
     public class Milk : IMilkActions
     {
@@ -104,7 +148,7 @@ namespace MainData
         {
             Console.Write("Enter milk name: ");
             MilkName = Console.ReadLine();
-            Console.Write("Enter production date: ");
+            Console.Write("Enter production date with dd/mm/yyyy format: ");
             string strProDate = Console.ReadLine();
             try
             {
@@ -123,7 +167,7 @@ namespace MainData
                 //ProductionDate = DateTime.ParseExact(strProDate, "dd/MM/yyyy", CultureInfo.InvariantCulture);
                 ValProductionDate = strProDate;
             }
-            Console.Write("Enter expired date: ");
+            Console.Write("Enter expired date with dd/mm/yyyy format: ");
             string strExpDate = Console.ReadLine();
             try
             {
@@ -132,7 +176,7 @@ namespace MainData
                 {
                     throw new FormatException();
                 }
-                if (ExpiredDate < ProductionDate)
+                if ((ExpiredDate - ProductionDate).TotalDays < 0)
                 {
                     throw new Exception();
                 }
@@ -192,6 +236,30 @@ namespace MainData
             MessageBox(0, OutPutMessage, "Milk Information", 1);
         }
 
+        private static readonly List<Milk> milkList = new List<Milk>();
+        public Milk this[int index]
+        {
+            get
+            {
+                Milk milk1;
+                if (index >= 0 && index < milkList.Count)
+                {
+                    milk1 = milkList[index];
+                }
+                else
+                {
+                    return null;
+                }
+                return milk1;
+            }
+            set
+            {
+                if (index >= 0 && index < milkList.Count)
+                {
+                    milkList[index] = value;
+                }
+            }
+        }
     }
 }
 namespace AttributeData
