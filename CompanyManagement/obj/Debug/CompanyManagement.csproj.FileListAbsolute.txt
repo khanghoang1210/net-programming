@@ -1,0 +1,7 @@
+D:\Data\VNU-HCMUS\dotnet\dotnet-programming\CompanyManagement\bin\Debug\CompanyManagement.exe.config
+D:\Data\VNU-HCMUS\dotnet\dotnet-programming\CompanyManagement\bin\Debug\CompanyManagement.exe
+D:\Data\VNU-HCMUS\dotnet\dotnet-programming\CompanyManagement\bin\Debug\CompanyManagement.pdb
+D:\Data\VNU-HCMUS\dotnet\dotnet-programming\CompanyManagement\obj\Debug\CompanyManagement.csproj.AssemblyReference.cache
+D:\Data\VNU-HCMUS\dotnet\dotnet-programming\CompanyManagement\obj\Debug\CompanyManagement.csproj.CoreCompileInputs.cache
+D:\Data\VNU-HCMUS\dotnet\dotnet-programming\CompanyManagement\obj\Debug\CompanyManagement.exe
+D:\Data\VNU-HCMUS\dotnet\dotnet-programming\CompanyManagement\obj\Debug\CompanyManagement.pdb
