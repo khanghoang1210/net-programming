@@ -13,20 +13,35 @@ namespace CompanyManagement
         }
         static void Main(string[] args)
         {
+
             Company company = new Company();
-            company.ValCompanyName = "CC";
-            company.CustomerList.Add(new Customer("C002", "Khang", CustomerType.TrungThanh));
-            company.CustomerList.Add(new Customer("C003", "Nhu", CustomerType.CanQuanTam));
+            company.ValCompanyName = "Company ABC";
+            company.CustomerList.Add(new Customer("C002", "A", CustomerType.TrungThanh));
+            company.CustomerList.Add(new Customer("C003", "B", CustomerType.CanQuanTam));
+            company.CustomerList.Add(new Customer("C005", "C", CustomerType.KhachHangKhac));
+            company.CustomerList.Add(new Customer("C006", "D", CustomerType.TiemNang));
             company.CustomerList.Add(new Customer("C004", "aa", CustomerType.CanQuanTam));
             company.CompanyAddOrRemoveEvent += new Company.CompanyHandler(UpdateNumOfCustomer);
             Customer customer = company.SearchCustomer("aa");
             company.RemoveCustomer(customer);
             company.CompanyInfo();
+            company.SortEvent += (sortOrder) => company.SortAndPrintList(sortOrder);
+
+            Console.WriteLine("Sap xep theo ten khach hang (asc/desc): ");
+            string sort = Console.ReadLine();
+            if (sort == "asc") company.OnSortEvent("asc");
+            else if (sort == "desc") company.OnSortEvent("desc");
+
+            Console.WriteLine("Nhap ten hoac thu tu khach hang muon tim kiem: ");
+            string search = Console.ReadLine();
+            bool isInt = int.TryParse(search, out int num);
 
             Console.WriteLine("Search Process:");
-            Console.WriteLine(company.SearchCustomer(1).ConvertToString());
-            Console.WriteLine(company.SearchCustomer("Khang").ConvertToString());
+            if (isInt) company.SearchCustomer(num).CustomerInfo();
+
+            else company.SearchCustomer(search).CustomerInfo();
             Console.ReadKey();
+
         }
     }
 }
@@ -43,6 +58,7 @@ namespace MainData
             }
             return null;
         }
+
     }
     public enum CustomerType { TrungThanh, TiemNang, CanQuanTam, KhachHangKhac };
     public class Customer
@@ -74,21 +90,27 @@ namespace MainData
         }
         public void CustomerInfo()
         {
+            Company company = new Company();
+            Dictionary<CustomerType, string> customerInfo = company.customerTypeInfo;
             string customerType = Enum.GetName(typeof(CustomerType), CustomerType);
             if (CustomerID != "C001")
             {
+                KeyValuePair<CustomerType, string> info = customerInfo.FirstOrDefault(o => o.Key == ValCustomerType);
                 Console.WriteLine($"Khach hang {CustomerID} - {CustomerName} la khach hang {CustomerType}");
+                Console.WriteLine($"---Thong tin khach hang: {info.Value}\n");
             }
         }
     }
 
     public class Company
     {
+        public delegate void SortEventHandler(string sortOrder);
+        public event SortEventHandler SortEvent;
         public delegate void CompanyHandler(Company company);
         public event CompanyHandler CompanyAddOrRemoveEvent;
         string CompanyName;
         public List<Customer> CustomerList;
-        Dictionary<CustomerType, string> customerTypeInfo = new Dictionary<CustomerType, string>();
+        public Dictionary<CustomerType, string> customerTypeInfo = new Dictionary<CustomerType, string>();
         int NumOfCustomer = 0;
         public Company()
         {
@@ -117,7 +139,7 @@ namespace MainData
             {
                 KeyValuePair<CustomerType, string> info = customerTypeInfo.FirstOrDefault(o => o.Key == customer.ValCustomerType);
                 customer.CustomerInfo();
-                Console.WriteLine($"---Thong tin khach hang: {info.Value}\n");
+                //Console.WriteLine($"---Thong tin khach hang: {info.Value}\n");
             }
         }
         public Customer SearchCustomer<T>(T search)
@@ -152,10 +174,29 @@ namespace MainData
         }
         public void OnCustomerChanger(Company company)
         {
-            if (CompanyAddOrRemoveEvent != null)
+            CompanyAddOrRemoveEvent?.Invoke(this);
+        }
+        public void SortAndPrintList(string sortOrder)
+        {
+            if (sortOrder.ToLower() == "asc")
             {
-                CompanyAddOrRemoveEvent(this);
+                CustomerList.Sort((x, y) => string.Compare(x.ValCustomerName, y.ValCustomerName, StringComparison.Ordinal));
             }
+            else if (sortOrder.ToLower() == "desc")
+            {
+
+                CustomerList.Sort((x, y) => string.Compare(y.ValCustomerName, x.ValCustomerName, StringComparison.Ordinal));
+            }
+
+            Console.WriteLine($"Sorted customer list ({sortOrder}) by name:");
+            foreach (var customer in CustomerList)
+            {
+                Console.WriteLine(customer.ConvertToString());
+            }
+        }
+        public void OnSortEvent(string sortOrder)
+        {
+            SortEvent?.Invoke(sortOrder);
         }
     }
 }
